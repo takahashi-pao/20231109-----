@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<header>
+
+</header>
+
+<script>   
+
+    function init(){     
+        // var target = document.getElementById('img_target')   
+        // target.style.top = random(64)+'vw'
+        // target.style.left = random(90)+'vh'
+    }
+
+    function random(x){
+        return Math.random() * x
+    }
+
+    function avoid(){
+        var msg = document.getElementById('msg')  
+        msg.style.opacity = 0
+
+        var target = document.getElementById('img_target')   
+        var clientRect = target.getBoundingClientRect() ;
+        var px = window.pageXOffset + clientRect.left ;
+	    var py = window.pageYOffset + clientRect.top ;
+
+        var window_width = window.innerWidth
+        var window_height = window.innerHeight
+
+        var px_per = (px/window_width)*100
+        var py_per = (py/window_height)*100
+
+        console.log('x:'+px_per)
+        console.log('y:'+py_per)
+
+        var move_x = random(window_width)
+        if (move_x < 0) move_x = 0
+        if (move_x > window_width-130) move_x = window_width -130
+
+        var move_y = random(window_height)
+        if (move_y < 0) move_y = 0
+        if (move_y > window_height-230) move_y = window_height-230
+
+
+        var target = document.getElementById('img_target')   
+        target.style.transform = `translate(${move_x}px, ${move_y}px)`;
+        console.log(move_x+'***'+move_y)
+
+        if(random(1) > 0.7){
+            msg.style.opacity = 1            
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", (event) => {
+        init()
+    });
+
+</script>
+
+<body>
+    <div id="img_target" style="width: 15%; position: absolute; transition: transform 0.5s ease-in-out;" onclick="avoid()">
+        <img src="IMG_8701.PNG" style="width: 100%; height: 100%;">
+        <p id="msg" style="opacity: 0; font-size: 2em; margin: 0; transition: transform 2s ease-in-out;">おそいね</p>
+    </div>
+</body>
